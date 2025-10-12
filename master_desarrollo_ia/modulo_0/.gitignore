@@ -1,0 +1,35 @@
+
+# Python cache and bytecode
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environments
+.venv/
+holapython/.venv/
+TaskManager/.venv312/
+env/
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Environment and config files
+.env
+*.env
+
+# OS and misc
+.DS_Store
+Thumbs.db
+
+# Log and database files
+*.log
+*.sqlite3
+*.db
+
+# Project specific
+holapython/__pycache__/
+TaskManager/__pycache__/
+holapython/analizador/__pycache__/
