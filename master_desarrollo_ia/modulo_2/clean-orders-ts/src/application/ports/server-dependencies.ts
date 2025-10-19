@@ -1,11 +1,8 @@
-import { Clock } from './clock.ts';
-import { EventBus } from './event-bus.ts';
-import { OrderRepository } from './order-repository.ts';
-import { PricingService } from './pricing-service.ts';
+// src/application/ports/server-dependencies.ts
+import { CreateOrder } from '../use-cases/create-order.js'
+import { AddItemToOrder } from '../use-cases/add-item-to-order.js'
 
-export type ServerDependencies = {
-  clock: Clock;
-  eventBus: EventBus;
-  orderRepository: OrderRepository;
-  pricingService: PricingService;
-};
+export interface ServerDependencies {
+  createOrderUseCase: CreateOrder
+  addItemToOrderUseCase: AddItemToOrder
+}

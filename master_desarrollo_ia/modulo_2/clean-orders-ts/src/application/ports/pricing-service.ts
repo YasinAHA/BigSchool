@@ -1,3 +1,9 @@
+// src/application/ports/pricing-service.ts
+import { SKU } from '../../domain/value-objects/sku.js'
+import { Money } from '../../domain/value-objects/money.js'
+import { Result } from '../../shared/result.js'
+import { AppError } from '../errors.js'
+
 export interface PricingService {
-  priceForSku(sku: string): Promise<number> | number;
+  getPrice(productSku: SKU): Promise<Result<Money, AppError>>
 }

@@ -1,6 +1,10 @@
-import { Order } from '../../domain/entities/order.ts';
+// src/application/ports/order-repository.ts
+import { Order } from '../../domain/entities/order.js'
+import { SKU } from '../../domain/value-objects/sku.js'
+import { Result } from '../../shared/result.js'
+import { AppError } from '../errors.js'
 
 export interface OrderRepository {
-  save(order: Order): Promise<void> | void;
-  findById(id: string): Promise<Order | null> | Order | null;
+  save(order: Order): Promise<Result<void, AppError>>
+  findById(sku: SKU): Promise<Result<Order, AppError>>
 }

@@ -1,5 +1,8 @@
-import { DomainEvent } from '../../domain/events/domain-event.js';
+// src/application/ports/event-bus.ts
+import { DomainEvent } from '../../domain/events/domain-event.js'
+import { Result } from '../../shared/result.js'
+import { AppError } from '../errors.js'
 
 export interface EventBus {
-  publish(event: DomainEvent): Promise<void> | void;
+  publish(events: DomainEvent[]): Promise<Result<void, AppError>>
 }
