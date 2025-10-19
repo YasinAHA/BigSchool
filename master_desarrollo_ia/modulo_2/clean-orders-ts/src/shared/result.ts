@@ -1,3 +1,4 @@
+// src/shared/result.ts
 export type Result<T, E> =
     | { success: true; data: T; isSuccess: true; isFailure: false; value: T }
     | { success: false; error: E; isSuccess: false; isFailure: true }
