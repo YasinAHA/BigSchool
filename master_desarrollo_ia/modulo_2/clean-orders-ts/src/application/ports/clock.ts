@@ -1,8 +1,8 @@
 // src/application/ports/clock.ts
 export interface Clock {
-  now(): Date;
+    now(): Date;
 }
 
 export const SystemClock: Clock = {
-  now: () => new Date(),
+    now: () => new Date(),
 };
