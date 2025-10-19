@@ -1,20 +1,23 @@
-import { DomainEvent } from './domain-event.js';
+// src/domain/events/item-added-to-order.ts
+import { DomainEvent } from './domain-event.js'
 
-export interface ItemAddedToOrder extends DomainEvent {
-  readonly type: 'ItemAddedToOrder';
-  readonly orderId: string;
-  readonly sku: string;
-  readonly quantity: number;
-}
+export class ItemAddedToOrder extends DomainEvent {
+  readonly productSku: string
+  readonly quantity: number
+  readonly unitPrice: number
+  readonly currency: string
 
-export function createItemAddedToOrderEvent(payload: {
-  orderId: string;
-  sku: string;
-  quantity: number;
-}): ItemAddedToOrder {
-  return {
-    type: 'ItemAddedToOrder',
-    occuredAt: new Date(),
-    ...payload,
-  };
+  constructor(
+    orderSku: string,
+    productSku: string,
+    quantity: number,
+    unitPrice: number,
+    currency: string
+  ) {
+    super(orderSku)
+    this.productSku = productSku
+    this.quantity = quantity
+    this.unitPrice = unitPrice
+    this.currency = currency
+  }
 }

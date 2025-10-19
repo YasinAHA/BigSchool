@@ -1,3 +1,4 @@
+// src/application/errors.ts
 export abstract class AppError extends Error {
     abstract readonly type: string
 }
