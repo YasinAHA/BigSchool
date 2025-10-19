@@ -42,6 +42,6 @@
     "moduleDetection": "force",
     "skipLibCheck": true,
   },
-  "include": ["src/**/*.ts", "main.ts"],
+  "include": ["src/**/*.ts", "main.ts", "tests/domain/price.spec.ts", "tests/domain/order.spec.ts"],
   "exclude": ["node_modules", "dist", "tests"]
 }
