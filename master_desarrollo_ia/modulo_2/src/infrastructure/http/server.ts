@@ -1,11 +1,15 @@
 import fastify from 'fastify';
-import { OrderController } from '@infrastructure/http/OrdersController';
+import { makeOrderController } from '@infrastructure/http/controllers/OrderControllerFactory';
+import { AppContainer } from '@composition/container';
 
-export async function buildServer () {
+export function buildServer(container: AppContainer) {
     const app = fastify();
 
-    app.post('/orders', OrderController.create);
-    app.delete('/orders/:id', OrderController.delete); // faltante implementar
-    // otras rutas...
+    // Registrar controladores
+    const orderController = makeOrderController(container.useCasses.addItemToOrder, container.useCases.createOrder)
+    app.post("/orders", orderController.create)
+    app.post("/orders/:orderId/items", orderController.addIem)
+
+
     return app;
 }
