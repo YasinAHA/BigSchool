@@ -1,4 +1,4 @@
-export type CreateOrderDTO = {
-  customerId: string;
-  items?: { sku: string; quantity: number }[];
-};
+// src/application/dto/create-order-dto.ts
+export interface CreateOrderDto {
+    orderSku: string
+}
