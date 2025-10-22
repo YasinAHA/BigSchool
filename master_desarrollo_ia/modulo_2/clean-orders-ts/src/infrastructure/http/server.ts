@@ -1,17 +1,17 @@
-// src/infrastructure/http/server.ts
 import fastify from 'fastify'
 import { ServerDependencies } from '../../application/ports/server-dependencies.js'
 import { OrderController } from './controllers/order-controller.js'
 
 export async function buildServer(dependencies: ServerDependencies) {
     const server = fastify({
-        logger: true
+        logger: false
     })
 
     // Presentation layer (Controllers)
     const orderController = new OrderController(
         dependencies.createOrderUseCase,
-        dependencies.addItemToOrderUseCase
+        dependencies.addItemToOrderUseCase,
+        dependencies.logger
     )
 
     // Register routes
@@ -19,6 +19,7 @@ export async function buildServer(dependencies: ServerDependencies) {
 
     // Health check endpoint
     server.get('/health', async () => {
+        dependencies.logger.info('Health check requested')
         return { status: 'ok', timestamp: new Date().toISOString() }
     })
 
