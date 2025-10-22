@@ -20,7 +20,7 @@ async function main() {
     server = await buildServer(dependencies)
     dependencies.logger.info('Server built successfully')
 
-    const host = process.env.HOST || '0.0.0.0'
+    const host = process.env.HOST || '127.0.0.1'
     const port = config.PORT
 
     await server.listen({ host, port })
