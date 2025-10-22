@@ -9,7 +9,7 @@ async function main() {
     // Build server with injected dependencies
     const server = await buildServer(dependencies)
     
-    const host = process.env.HOST || '0.0.0.0'
+    const host = process.env.HOST || '127.0.0.1';
     const port = parseInt(process.env.PORT || '3000', 10)
     
     await server.listen({ host, port })
