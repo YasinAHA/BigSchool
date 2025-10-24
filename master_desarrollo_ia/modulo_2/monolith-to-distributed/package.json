@@ -1,5 +1,6 @@
 {
   "name": "monolith-to-distributed",
+  "type": "module",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -24,5 +25,11 @@
     "prisma": "^6.16.1",
     "tsx": "^4.20.5",
     "uuid": "^13.0.0"
+  }
+  ,
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "@types/node": "^20.5.0",
+    "@types/amqplib": "^0.8.4"
   }
 }

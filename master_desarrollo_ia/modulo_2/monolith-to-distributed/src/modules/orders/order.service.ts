@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { getPrisma } from '../../db/prisma';
 
 export async function createOrder(orderId: string, userId: string, total: number) {
-  const prisma = getPrisma();
+  const prisma = await getPrisma();
   if (!prisma) throw new Error('Prisma client no disponible. Ejecuta `npx prisma generate`.');
 
   await prisma.$transaction(async (tx: any) => {
