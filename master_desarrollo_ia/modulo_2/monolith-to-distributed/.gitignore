@@ -75,3 +75,5 @@ Thumbs.db
 
 # Lockfiles for reproducible builds (if you intentionally commit them, remove)
 # package-lock.json
+
+/src/generated/prisma
