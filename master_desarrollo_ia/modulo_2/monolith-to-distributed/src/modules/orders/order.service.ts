@@ -1,9 +1,12 @@
 // src/modules/orders/order.service.ts
-import { prisma } from '../../db/prisma';
 import { v4 as uuidv4 } from 'uuid';
+import { getPrisma } from '../../db/prisma';
 
 export async function createOrder(orderId: string, userId: string, total: number) {
-  await prisma.$transaction(async (tx) => {
+  const prisma = getPrisma();
+  if (!prisma) throw new Error('Prisma client no disponible. Ejecuta `npx prisma generate`.');
+
+  await prisma.$transaction(async (tx: any) => {
     // Guardar el pedido
     await tx.order.create({
       data: {

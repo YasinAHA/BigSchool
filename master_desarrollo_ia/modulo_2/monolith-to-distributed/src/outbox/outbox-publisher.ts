@@ -1,7 +1,10 @@
 import amqp from 'amqplib';
-import { prisma } from '../db/prisma';
+import { getPrisma } from '../db/prisma';
 
 export async function publishOutboxEvents() {
+  const prisma = getPrisma();
+  if (!prisma) throw new Error('Prisma client no disponible. Ejecuta `npx prisma generate`.');
+
   const conn = await amqp.connect('amqp://localhost');
   const channel = await conn.createChannel();
 
