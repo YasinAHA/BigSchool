@@ -21,7 +21,7 @@ export async function startConsumer(onEvent: (evt: OrderCreatedEvent) => void) {
   await ch.assertQueue(QUEUE, { durable: false });
   console.log(`Waiting messages on queue '${QUEUE}'...`);
 
-  ch.consume(QUEUE, (msg) => {
+  ch.consume(QUEUE, (msg: amqp.ConsumeMessage | null) => {
     if (!msg) return;
 
     try {

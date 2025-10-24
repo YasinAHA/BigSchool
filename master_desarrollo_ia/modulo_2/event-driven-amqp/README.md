@@ -66,3 +66,30 @@ Buenas prácticas (para seguir aprendiendo)
 
 ---
 Si quieres, puedo: (a) añadir un `docker-compose.yml` con RabbitMQ para ejecutar localmente, (b) añadir tipos y pruebas de ejemplo, o (c) integrar reconexión automática y backoff en el consumidor.
+
+Docker Compose — levantar RabbitMQ localmente
+
+Para que el ejemplo sea completamente reproducible, añadí un `docker-compose.yml` que arranca RabbitMQ con la interfaz de management.
+
+Arrancar RabbitMQ:
+
+```bash
+docker compose up -d
+```
+
+Parar y borrar los contenedores:
+
+```bash
+docker compose down
+```
+
+Accede a la UI de administración en: http://localhost:15672 (usuario/contraseña: `guest` / `guest`)
+
+Una vez levantado RabbitMQ, ejecuta en otra terminal:
+
+```bash
+npm run dev:consumer    # o npm run start:consumer si compilaste
+npm run dev:publisher   # para enviar un evento de ejemplo
+```
+
+Esto permite probar el flujo publisher -> queue -> consumer sin instalar RabbitMQ localmente.
