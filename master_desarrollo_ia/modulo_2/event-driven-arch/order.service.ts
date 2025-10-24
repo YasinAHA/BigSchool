@@ -1,5 +1,5 @@
 import { eventBus } from './event-bus';
-import { OrderCreatedEvent } from './events/order-created.event';
+import { OrderCreatedEvent } from './src/events/order-created.event';
 
 export function createOrder(orderId: string, userId: string, total: number) {
   const event: OrderCreatedEvent = { orderId, userId, total };
