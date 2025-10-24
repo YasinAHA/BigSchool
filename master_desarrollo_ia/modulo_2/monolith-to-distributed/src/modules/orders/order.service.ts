@@ -5,5 +5,5 @@ import type { OrderCreatedEvent } from './order-created.event';
 export function createOrder(orderId: string, userId: string, total: number): void {
   const event: OrderCreatedEvent = {orderId, userId, total};
   console.log(`Order ${orderId} created.`);
-  eventBus.emit('orderCreated', event);
+  eventBus.emit('order.created', event);
 }
