@@ -1,0 +1,23 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Clean And Run",
+            "type": "shell",
+            "command": "java Main.java",
+            "windows": {
+                "command": "cls && java Main.java"
+            },
+            "osx": {
+                "command": "clear && java Main.java"
+            },
+            "linux": {
+                "command": "clear && java Main.java"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+        }
+    ]
+}
