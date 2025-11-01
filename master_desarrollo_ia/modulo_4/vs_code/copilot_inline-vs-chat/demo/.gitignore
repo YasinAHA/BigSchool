@@ -1,0 +1,49 @@
+# Compiled class files
+*.class
+
+# Log files
+*.log
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# Maven
+/target/
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.swp
+
+# Test output
+/test-classes/
+
+# Other
+hs_err_pid*
+
+# If you use Maven wrapper, don't ignore the wrapper jar and scripts
+# (keep .mvn/wrapper and mvnw/mvnw.cmd committed). Only ignore timing or local files if needed.
