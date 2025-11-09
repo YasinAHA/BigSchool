@@ -2,7 +2,7 @@ import { createTask, getTasks } from "./actions";
 import { TaskList } from "./task-list";
 
 export default async function Home() {
-  const tasks = getTasks();
+  const tasks = await getTasks();
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-2xl flex-col gap-8 px-6 py-16">
@@ -11,6 +11,10 @@ export default async function Home() {
         <p className="text-sm text-gray-600">
           Añade tareas, márcalas como completadas o elimínalas cuando ya no las
           necesites.
+        </p>
+        <p className="text-xs text-gray-500">
+          Nota: esta demo mantiene las tareas en memoria en el servidor de
+          desarrollo y no persiste entre reinicios. Es útil como ejemplo simple.
         </p>
       </header>
 

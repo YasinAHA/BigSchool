@@ -1,7 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { deleteTask, toggleTask, type Task } from "./actions";
+import { useEffect, useMemo, useState } from "react";
+import type { Task } from "../types/task";
+import { deleteTask, toggleTask } from "./actions";
 
 type Filter = "all" | "pending" | "completed";
 
@@ -11,7 +12,7 @@ const filterLabels: Record<Filter, string> = {
   completed: "Completadas",
 };
 
-function filterTasks(tasks: Task[], filter: Filter) {
+function filterTasks(tasks: readonly Task[], filter: Filter) {
   if (filter === "pending") {
     return tasks.filter((task) => !task.completed);
   }
@@ -23,19 +24,36 @@ function filterTasks(tasks: Task[], filter: Filter) {
   return tasks;
 }
 
-export function TaskList({ tasks }: { tasks: Task[] }) {
+export function TaskList({ tasks }: Readonly<{ tasks: readonly Task[] }>) {
   const [filter, setFilter] = useState<Filter>("all");
 
-  const filteredTasks = useMemo(() => filterTasks(tasks, filter), [tasks, filter]);
+  // Local copy for optimistic updates: toggle/delete will update UI immediately
+  const [localTasks, setLocalTasks] = useState<Task[]>(() => [...tasks]);
+
+  // Sync local state when server-provided tasks change
+  useEffect(() => {
+    setLocalTasks([...tasks]);
+  }, [tasks]);
+
+  // Handlers separated to avoid deep nesting inside JSX
+  function handleToggleLocal(id: string) {
+    setLocalTasks(localTasks.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t)));
+  }
+
+  function handleDeleteLocal(id: string) {
+    setLocalTasks(localTasks.filter((t) => t.id !== id));
+  }
+
+  const filteredTasks = useMemo(() => filterTasks(localTasks, filter), [localTasks, filter]);
   const pendingCount = useMemo(
-    () => tasks.reduce((count, task) => (task.completed ? count : count + 1), 0),
-    [tasks],
+    () => localTasks.reduce((count, task) => (task.completed ? count : count + 1), 0),
+    [localTasks],
   );
 
   return (
     <section className="flex w-full flex-col gap-6">
       <header className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <h2 className="text-lg font-semibold">{`${pendingCount} pendientes de ${tasks.length}`}</h2>
+  <h2 className="text-lg font-semibold">{`${pendingCount} pendientes de ${localTasks.length}`}</h2>
         <div className="flex gap-2">
           {(Object.keys(filterLabels) as Filter[]).map((key) => (
             <button
@@ -76,6 +94,10 @@ export function TaskList({ tasks }: { tasks: Task[] }) {
                     className="h-4 w-4 cursor-pointer"
                     checked={task.completed}
                     onChange={(event) => {
+                      // Optimistic update: toggle locally so UI responds immediately
+                      handleToggleLocal(task.id);
+
+                      // Submit server action to persist change
                       event.currentTarget.form?.requestSubmit();
                     }}
                   />
@@ -90,6 +112,10 @@ export function TaskList({ tasks }: { tasks: Task[] }) {
                   type="submit"
                   aria-label={`Eliminar la tarea "${task.title}"`}
                   className="rounded-md border border-transparent bg-red-500 px-3 py-1 text-xs font-semibold text-white transition-colors hover:bg-red-600"
+                  onClick={() => {
+                    // Optimistic remove from UI
+                    handleDeleteLocal(task.id);
+                  }}
                 >
                   Eliminar
                 </button>

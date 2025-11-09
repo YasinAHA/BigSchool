@@ -1,17 +1,17 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { randomUUID } from "crypto";
+import { randomUUID } from "node:crypto";
+import type { Task } from "../types/task";
 
-export type Task = {
-  id: string;
-  title: string;
-  completed: boolean;
-};
+// Tareas de ejemplo para que la app muestre contenido al abrirla.
+// Mantener en memoria (demo simple). Para producción usaría una BD o persistencia.
+let tasks: Task[] = [
+  { id: randomUUID(), title: "Comprar leche", completed: false },
+  { id: randomUUID(), title: "Aprender los básicos de Next.js", completed: true },
+];
 
-let tasks: Task[] = [];
-
-export function getTasks() {
+export async function getTasks() {
   return tasks;
 }
 
