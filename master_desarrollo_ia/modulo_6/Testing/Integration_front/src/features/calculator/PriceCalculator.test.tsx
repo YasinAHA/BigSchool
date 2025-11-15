@@ -9,8 +9,9 @@ test("calculates total correctly using userEvent", async () => {
   const quantity = screen.getByLabelText(/Quantity/i) as HTMLInputElement;
   const unitPrice = screen.getByLabelText(/Unit Price/i) as HTMLInputElement;
 
-  await user.type(quantity, "3");
-  await user.type(unitPrice, "10.50");
+  await user.type(quantity, '3');
+  await user.type(unitPrice, '10.50');
 
-  expect(screen.getByText(/Total: \$31.50/)).toBeTruthy();
+  // wait for the total to be updated to avoid act(...) warnings
+  expect(await screen.findByText(/Total: \$31.50/)).toBeTruthy();
 });
