@@ -22,6 +22,18 @@ npx playwright install
 npm test
 ```
 
+4. Levantar la aplicación bajo prueba
+
+Los tests usan `page.goto('/')` y dependen de que la aplicación esté servida en `http://localhost:3000`.
+Antes de ejecutar los tests asegúrate de levantar tu servidor (por ejemplo):
+
+```cmd
+cd c:\ruta\a\tu\proyecto
+npm run dev
+```
+
+Si tu app usa otro puerto, actualiza `baseURL` en `playwright.config.ts`.
+
 Notas
 
 - Las pruebas están en la carpeta `tests/`.

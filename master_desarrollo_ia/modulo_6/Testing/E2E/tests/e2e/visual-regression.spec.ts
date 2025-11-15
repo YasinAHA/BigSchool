@@ -4,6 +4,12 @@ test.describe('Visual regression - Cart', () => {
   test('Carrito con 1 ítem - snapshot visual', async ({ page }) => {
     await page.goto('/');
 
+    // Cambiar a vista E-commerce
+    await page.getByRole('button', { name: 'E-commerce Demo' }).click();
+
+    // Verificar que los productos cargaron
+    await expect(page.getByRole('heading', { name: 'Products' })).toBeVisible();
+
     // Agregar primer producto
     await page.getByRole('button', { name: 'Add to Cart' }).first().click();
 

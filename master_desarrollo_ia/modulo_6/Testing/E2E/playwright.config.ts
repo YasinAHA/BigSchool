@@ -10,6 +10,8 @@ export default defineConfig({
     }
   },
   use: {
+    // Base URL used with `page.goto('/')`. Change to your app's URL/port.
+    baseURL: 'http://localhost:3000',
     headless: true,
     viewport: { width: 1280, height: 720 },
     actionTimeout: 10_000,
