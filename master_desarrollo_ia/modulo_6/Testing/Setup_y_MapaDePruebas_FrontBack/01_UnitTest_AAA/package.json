@@ -1,0 +1,15 @@
+{
+  "name": "calculate-subtotal-example",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "vitest": "^1.6.1",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.0",
+    "esbuild": "^0.18.0"
+  }
+}
