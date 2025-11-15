@@ -1,0 +1,16 @@
+{
+  "name": "bigschool-e2e",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:report": "playwright show-report",
+    "install:playwright": "npx playwright install",
+    "test:e2e": "playwright test tests/e2e",
+    "test:e2e:update": "playwright test tests/e2e --update-snapshots"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.0"
+  }
+}
