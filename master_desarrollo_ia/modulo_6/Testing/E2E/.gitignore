@@ -53,3 +53,7 @@ Thumbs.db
 
 # Lockfiles
 package-lock.json
+
+# Testing/E2E
+tests/**/**/*.png
+

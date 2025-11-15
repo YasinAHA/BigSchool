@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Mini E-commerce Demo</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <header>
+      <h1>BigSchool E2E Demo</h1>
+    </header>
+
+    <main>
+      <section id="home">
+        <button id="open-ecom">E-commerce Demo</button>
+      </section>
+
+      <section id="products" hidden>
+        <h2>Products</h2>
+        <div class="product">
+          <span class="product-name">Demo product</span>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+      </section>
+
+      <aside id="cart">
+        <div data-testid="cart-summary" id="cart-summary" hidden>
+          <strong>Cart Summary</strong>
+          <div>Items: <span data-testid="cart-count">0</span></div>
+        </div>
+      </aside>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
