@@ -20,5 +20,5 @@ Archivo: `src/features/likes/LikeButton.test.tsx`
 
 ## Validación
 ```
-pnpm test
+npm test
 ```

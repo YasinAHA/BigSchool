@@ -23,5 +23,5 @@ Archivo: `src/features/calculator/PriceCalculator.test.tsx`
 
 ## Validación
 ```
-pnpm test
+npm test
 ```
