@@ -7,5 +7,6 @@ test('increments likes when clicked', async () => {
   const user = userEvent.setup()
   const button = screen.getByRole('button', { name: /like \(0\)/i })
   await user.click(button)
-  expect(button.textContent).toBe('Like (1)')
+  // wait for the updated button text to avoid act(...) warnings
+  expect(await screen.findByRole('button', { name: /like \(1\)/i })).toBeTruthy()
 })
