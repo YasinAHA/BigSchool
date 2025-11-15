@@ -1,0 +1,17 @@
+{
+    "name": "02_integrationtest",
+    "version": "1.0.0",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "test": "vitest"
+    },
+    "vitest": {
+        "test": {
+            "environment": "jsdom",
+            "setupFiles": [
+                "./vitest.setup.ts"
+            ]
+        }
+    }
+}
