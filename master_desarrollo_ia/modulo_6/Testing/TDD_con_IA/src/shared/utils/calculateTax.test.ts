@@ -11,4 +11,14 @@ describe('calculateTax (RED phase)', () => {
     // Assert
     expect(result).toBe(10)
   })
+
+  it('calculateTax(200, 15) should return 30 (triangulation)', () => {
+    // Arrange
+
+    // Act
+    const result = calculateTax(200, 15)
+
+    // Assert
+    expect(result).toBe(30)
+  })
 })
