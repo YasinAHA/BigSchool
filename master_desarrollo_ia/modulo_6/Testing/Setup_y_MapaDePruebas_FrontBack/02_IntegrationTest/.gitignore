@@ -1,0 +1,51 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build outputs
+dist/
+build/
+
+# Logs
+logs
+*.log
+
+# Env files
+.env
+.env.*
+
+# TypeScript
+*.tsbuildinfo
+
+# Coverage
+coverage/
+.nyc_output/
+
+# Vite / cache
+.vite/
+.cache/
+node_modules/.vite/
+
+# Vitest
+.vitest/
+
+# Editor directories and files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Package archives
+*.tgz
+
+# Lockfiles
+package-lock.json

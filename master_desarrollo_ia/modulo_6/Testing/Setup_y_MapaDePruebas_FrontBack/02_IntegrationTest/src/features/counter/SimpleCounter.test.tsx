@@ -1,4 +1,3 @@
-import '@testing-library/jest-dom'
 import { fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, test } from 'vitest'
 import { SimpleCounter } from './SimpleCounter'

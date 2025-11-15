@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { JSX, useState } from 'react'
 
 export function SimpleCounter(): JSX.Element {
   const [count, setCount] = useState<number>(0)
