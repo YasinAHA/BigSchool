@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helloworld-python
+  labels:
+    app: helloworld-python
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: helloworld-python
+  template:
+    metadata:
+      labels:
+        app: helloworld-python
+    spec:
+      containers:
+      - name: helloworld-python
+        image: yasinbs/hellow-world-python:latest
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
