@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__context7__resolve-library-id",
+      "Bash(npm create vite@latest . -- --template react-ts)",
+      "Bash(pnpm create vite . --template react-ts)",
+      "Bash(pnpm create vite@latest . --template react-ts)",
+      "Bash(pnpm test --run)",
+      "Bash(pnpm lint:*)",
+      "Bash(pnpm build:*)",
+      "Bash(git cherry-pick:*)",
+      "Bash(pnpm test:coverage)",
+      "Bash(cat:*)",
+      "Bash(pnpm install:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
