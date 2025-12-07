@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(///**)",
+      "Read(//Users/alanbuscaglia/work/ai-course-2/ai-course/**)",
+      "Bash(pnpm add:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
