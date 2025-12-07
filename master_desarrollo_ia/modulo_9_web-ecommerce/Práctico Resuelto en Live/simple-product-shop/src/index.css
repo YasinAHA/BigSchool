@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+/* Screen reader only - visually hidden but accessible */
+@layer utilities {
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+}
+
+/* Focus visible styles for keyboard navigation accessibility */
+@layer base {
+  /* Remove default focus outline for mouse users */
+  *:focus {
+    outline: none;
+  }
+
+  /* Show focus ring only for keyboard navigation */
+  *:focus-visible {
+    outline: 2px solid #2563eb; /* blue-600 */
+    outline-offset: 2px;
+  }
+
+  /* Specific styles for interactive elements */
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  [role="button"]:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* High contrast focus for dark backgrounds */
+  .bg-blue-600:focus-visible,
+  .bg-green-600:focus-visible,
+  .bg-red-600:focus-visible {
+    outline-color: #ffffff;
+  }
+}

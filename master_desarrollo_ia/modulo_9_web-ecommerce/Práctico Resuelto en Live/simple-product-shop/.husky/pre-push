@@ -1,0 +1,14 @@
+echo ""
+echo "🚀 AI is the BEST - Running pre-push checks..."
+echo ""
+
+if pnpm verify; then
+  echo ""
+  echo "✅ Pre-push checks passed!"
+  echo ""
+else
+  echo ""
+  echo "❌ Pre-push checks failed!"
+  echo ""
+  exit 1
+fi
