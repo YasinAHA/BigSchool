@@ -1,0 +1,294 @@
+openapi: 3.0.3
+info:
+  title: API de Gestión de Facturas
+  description: API REST para la gestión de facturas con estados y numeración correlativa
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/api
+    description: Servidor de desarrollo
+  - url: https://api.ejemplo.com/api
+    description: Servidor de producción
+
+paths:
+  /facturas:
+    post:
+      summary: Crear nueva factura
+      description: Crea una nueva factura en estado borrador
+      tags:
+        - Facturas
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - cifCliente
+                - denominacionSocial
+                - direccionFiscal
+                - importeBase
+                - iva
+              properties:
+                cifCliente:
+                  type: string
+                  example: "B12345678"
+                  description: CIF del cliente
+                denominacionSocial:
+                  type: string
+                  example: "Empresa Ejemplo S.L."
+                  description: Nombre o razón social del cliente
+                direccionFiscal:
+                  type: string
+                  example: "Calle Mayor 123, 28001 Madrid"
+                  description: Dirección fiscal del cliente
+                importeBase:
+                  type: number
+                  format: double
+                  example: 1000.00
+                  description: Importe base sin IVA
+                iva:
+                  type: number
+                  format: double
+                  example: 210.00
+                  description: Importe del IVA
+      responses:
+        '201':
+          description: Factura creada exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Factura'
+        '400':
+          description: Datos de entrada inválidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    
+    get:
+      summary: Listar facturas
+      description: Obtiene un listado de facturas con filtros opcionales
+      tags:
+        - Facturas
+      parameters:
+        - in: query
+          name: estado
+          schema:
+            type: string
+            enum: [borrador, definitivo]
+          description: Filtrar por estado de la factura
+        - in: query
+          name: cifCliente
+          schema:
+            type: string
+          description: Filtrar por CIF del cliente
+      responses:
+        '200':
+          description: Lista de facturas
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  facturas:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Factura'
+                  total:
+                    type: integer
+                    example: 1
+                    description: Total de facturas encontradas
+
+  /facturas/{id}:
+    get:
+      summary: Obtener factura por ID
+      description: Obtiene los detalles de una factura específica
+      tags:
+        - Facturas
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID único de la factura
+      responses:
+        '200':
+          description: Factura encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Factura'
+        '404':
+          description: Factura no encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    
+    delete:
+      summary: Eliminar factura
+      description: Elimina una factura (solo permitido si está en estado borrador)
+      tags:
+        - Facturas
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID único de la factura
+      responses:
+        '204':
+          description: Factura eliminada exitosamente
+        '400':
+          description: No se puede eliminar una factura en estado definitivo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Factura no encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflicto de estado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /facturas/{id}/estado:
+    patch:
+      summary: Actualizar estado de factura
+      description: Cambia el estado de una factura. Al pasar a definitivo se asigna número correlativo
+      tags:
+        - Facturas
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID único de la factura
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - estado
+              properties:
+                estado:
+                  type: string
+                  enum: [definitivo]
+                  description: Nuevo estado de la factura (solo se permite cambiar a definitivo)
+      responses:
+        '200':
+          description: Estado actualizado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Factura'
+        '400':
+          description: Cambio de estado no permitido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Factura no encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflicto de estado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    Factura:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "550e8400-e29b-41d4-a716-446655440000"
+          description: Identificador único de la factura
+        numero:
+          type: string
+          nullable: true
+          example: "BT001"
+          description: Número de factura (solo asignado en estado definitivo)
+        cifCliente:
+          type: string
+          example: "B12345678"
+          description: CIF del cliente
+        denominacionSocial:
+          type: string
+          example: "Empresa Ejemplo S.L."
+          description: Nombre o razón social del cliente
+        direccionFiscal:
+          type: string
+          example: "Calle Mayor 123, 28001 Madrid"
+          description: Dirección fiscal del cliente
+        importeBase:
+          type: number
+          format: double
+          example: 1000.00
+          description: Importe base sin IVA
+        iva:
+          type: number
+          format: double
+          example: 210.00
+          description: Importe del IVA
+        importeTotal:
+          type: number
+          format: double
+          example: 1210.00
+          description: Importe total (calculado como base + iva)
+        estado:
+          type: string
+          enum: [borrador, definitivo]
+          example: "borrador"
+          description: Estado actual de la factura
+        fechaCreacion:
+          type: string
+          format: date-time
+          example: "2024-01-10T10:00:00Z"
+          description: Fecha y hora de creación de la factura
+        fechaDefinitivo:
+          type: string
+          format: date-time
+          nullable: true
+          example: "2024-01-10T11:00:00Z"
+          description: Fecha y hora cuando la factura pasó a estado definitivo
+    
+    Error:
+      type: object
+      properties:
+        codigo:
+          type: string
+          example: "INVALID_STATE"
+          description: Código de error
+        mensaje:
+          type: string
+          example: "No se puede eliminar una factura en estado definitivo"
+          description: Mensaje descriptivo del error
+        detalles:
+          type: object
+          description: Detalles adicionales del error (opcional)
+
+tags:
+  - name: Facturas
+    description: Operaciones relacionadas con la gestión de facturas
